@@ -656,9 +656,11 @@ class TVConnectionService : ConnectionService() {
         params.getExtra(TVParameters.PARAM_SUBJECT, null)?.let {
             connection.extras.putString(TelecomManager.EXTRA_CALL_SUBJECT, it)
         }
-        val name = if(connection.callDirection == CallDirection.OUTGOING) params.to else params.from
-        connection.setAddress(Uri.fromParts(PhoneAccount.SCHEME_TEL, name, null), TelecomManager.PRESENTATION_ALLOWED)
-        connection.setCallerDisplayName(name, TelecomManager.PRESENTATION_ALLOWED)
+        if(connection.callDirection == CallDirection.INCOMING){
+            val name = if(connection.callDirection == CallDirection.OUTGOING) params.to else params.from
+            connection.setAddress(Uri.fromParts(PhoneAccount.SCHEME_TEL, name, null), TelecomManager.PRESENTATION_ALLOWED)
+            connection.setCallerDisplayName(name, TelecomManager.PRESENTATION_ALLOWED)
+        }
     }
 
     private fun sendBroadcastEvent(ctx: Context, event: String, callSid: String?, extras: Bundle? = null) {
