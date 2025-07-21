@@ -600,6 +600,8 @@ class TVConnectionService : ConnectionService() {
         val callerName = params["callerName"] ?: to
         Log.e("Caller data", callerName)
         connection.setCallerDisplayName(callerName, TelecomManager.PRESENTATION_ALLOWED)
+        val callerUri = Uri.fromParts(PhoneAccount.SCHEME_SIP, callerName, null)
+        connection.setAddress(callerUri, TelecomManager.PRESENTATION_ALLOWED)
 
         // Setup connection UI parameters
         connection.setInitializing()
