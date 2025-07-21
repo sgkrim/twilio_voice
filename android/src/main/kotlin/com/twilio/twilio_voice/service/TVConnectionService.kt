@@ -657,7 +657,7 @@ class TVConnectionService : ConnectionService() {
             connection.extras.putString(TelecomManager.EXTRA_CALL_SUBJECT, it)
         }
         if(connection.callDirection == CallDirection.INCOMING){
-            val name = if(connection.callDirection == CallDirection.OUTGOING) params.to else params.from
+            val name = params.getExtra("callerName", null) ?: params.from
             connection.setAddress(Uri.fromParts(PhoneAccount.SCHEME_TEL, name, null), TelecomManager.PRESENTATION_ALLOWED)
             connection.setCallerDisplayName(name, TelecomManager.PRESENTATION_ALLOWED)
         }
