@@ -596,6 +596,7 @@ class TVConnectionService : ConnectionService() {
         }
         connection.setOnCallStateListener(onCallStateListener)
 
+        Log.e("Caller data", params.toString())
         val callerName = params["callerName"] ?: to
         connection.setCallerDisplayName(callerName, TelecomManager.PRESENTATION_ALLOWED)
 
